@@ -2,7 +2,7 @@
   <h1>あさめしアプリのアカウントを作成しよう</h1>
   <p><input type="text" placeholder="メールアドレス" v-model="email" /></p>
   <p><input type="password" placeholder="パスワード" v-model="password" /></p>
-  <p><button @click="register" >登録</button></p>
+  <p><button @click="register">登録</button></p>
   <p><button @click="signInWithGoogle">Googleでサインインする</button></p>
 </template>
 
@@ -16,6 +16,10 @@ import {
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+const props = defineProps({
+  signInWithGoogle: Function,
+});
+
 const email = ref('');
 const password = ref('');
 const router = useRouter();
@@ -27,18 +31,9 @@ function register() {
       console.log(auth.currentUser);
       router.push('/feed');
     })
-    .catch((error) => {
-    });
+    .catch((error) => {});
 }
 
-function signInWithGoogle() {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      console.log(result);
-      router.push('/feed');
-    })
-    .catch((error) => {
-    });
-}
+
+
 </script>
